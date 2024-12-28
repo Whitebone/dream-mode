@@ -1,5 +1,6 @@
 // Helper to convert to EST timezone
 function convertToEST(date) {
+    // This ensures the date is correctly converted to New York time (EST/EDT)
     return new Date(date.toLocaleString("en-US", { timeZone: "America/New_York" }));
 }
 
@@ -38,7 +39,7 @@ function updateSchedule() {
 
             // Find the current mode and next mode
             schedule.forEach(item => {
-                const modeDate = convertToEST(new Date(item.date));
+                const modeDate = convertToEST(new Date(item.date)); // Ensure EST conversion
                 if (modeDate <= currentDate) {
                     currentMode = item;
                 } else if (!nextMode || modeDate < convertToEST(new Date(nextMode.date))) {
@@ -69,14 +70,14 @@ function updateSchedule() {
 
             // Display the upcoming 7 modes
             const upcomingModes = schedule.filter(item => {
-                const modeDate = convertToEST(new Date(item.date));
+                const modeDate = convertToEST(new Date(item.date)); // Ensure EST conversion
                 return modeDate >= currentDate;
             }).slice(0, 7);
 
             scheduleListElement.innerHTML = ''; // Clear existing list items
 
             upcomingModes.forEach(item => {
-                const modeDate = convertToEST(new Date(item.date));
+                const modeDate = convertToEST(new Date(item.date)); // Ensure EST conversion
                 const listItem = document.createElement('li');
                 listItem.innerHTML = `
                     <span class="mode-name">${item.mode}</span>
